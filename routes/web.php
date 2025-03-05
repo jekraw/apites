@@ -8,6 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/token/create', function (Request $request) {
+    $token = $request->user()->createToken($request->token_name);
+
+    return ['token' => $token->plainTextToken];
+});
+
 Route::get('/get-user', [App\Http\Controllers\UserController::class, 'getUser']);
 Route::post('/add-user', [App\Http\Controllers\UserController::class, 'postUser']);
 Route::put('/update-user/{id}', [App\Http\Controllers\UserController::class, 'updateUser']);
