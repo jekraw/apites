@@ -29,9 +29,9 @@ class HashPasswords extends Command
     {
         //
         $users = DB::table('user')->get();
-        foreach($users->tokens as $token) {
+        foreach($users as $user) {
             DB::table('user')
-            ->where('id', $token->id)
+            ->where('id', $user->id)
             ->update(['password' => Hash::make($user->password)]);
         }$this->info('All passwords have been rehashed.');
 

@@ -14,6 +14,10 @@ Route::post('/token/create', function (Request $request) {
     return ['token' => $token->plainTextToken];
 });
 
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
+
 Route::get('/get-user', [App\Http\Controllers\UserController::class, 'getUser']);
 Route::post('/add-user', [App\Http\Controllers\UserController::class, 'postUser']);
 Route::put('/update-user/{id}', [App\Http\Controllers\UserController::class, 'updateUser']);
