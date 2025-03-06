@@ -26,9 +26,9 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
         "DB_CONNECTION": "mysql",
-        "DB_HOST": "wki4b.h.filess.io",
+        "DB_HOST": "6kfb6.h.filess.io",
         "DB_PORT": "3307",
-        "DB_DATABASE": "api_millsince",
-        "DB_USERNAME": "api_millsince"
+        "DB_DATABASE": "apites_tribemake",
+        "DB_USERNAME": "apites_tribemake"
     }
 }
