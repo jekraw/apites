@@ -8,32 +8,57 @@ use DB;
 
 class UserController extends Controller
 {
-    function login(request $request)
-    {
-        $username = $request->username;
-        $password = $request->password;
+    function login(Request $request){
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
-        $user = DB::table('user')
-        ->where('username', $username)
-        ->first();
+        $user = User::where('username', $request->username)->first();
 
-        if ($user && Hash::check($password, $user->password)) {
-            $userDetails = DB::table('userdetail')
-            ->where('id', $user->id)
-            ->first();
+        if ($user && Hash::check($request->password, $user->password)){
+            $userDetails = UserDetail::where('id', $user->id)->first();
+            $token = $user->createToken('authToken')->plainTextToken;
 
             return response()->json([
                 'success' => true,
-                'data' => $userDetails,
-                'message' => 'Login Sukses'
+                'token' => $token,
+                'user' => $userDetails,
+                'message' => 'Login Successful'
             ]);
         }
-
         return response()->json([
             'success' => false,
-            'message' => 'Username atau Password Salah!'
+            'message' => 'Invalid username or password'
         ], 401);
     }
+    
+    // function login(request $request)
+    // {
+    //     $username = $request->username;
+    //     $password = $request->password;
+
+    //     $user = DB::table('user')
+    //     ->where('username', $username)
+    //     ->first();
+
+    //     if ($user && Hash::check($password, $user->password)) {
+    //         $userDetails = DB::table('userdetail')
+    //         ->where('id', $user->id)
+    //         ->first();
+
+    //         return response()->json([
+    //             'success' => true,
+    //             'data' => $userDetails,
+    //             'message' => 'Login Sukses'
+    //         ]);
+    //     }
+
+    //     return response()->json([
+    //         'success' => false,
+    //         'message' => 'Username atau Password Salah!'
+    //     ], 401);
+    // }
 
     function getUser()
     {
