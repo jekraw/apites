@@ -8,11 +8,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/token/create', function (Request $request) {
-    $token = $request->user()->createToken($request->token_name);
+// Route::post('/token/create', function (Request $request) {
+//     $token = $request->user()->createToken($request->token_name);
 
-    return ['token' => $token->plainTextToken];
-});
+//     return ['token' => $token->plainTextToken];
+// });
 
 Route::get('/user', function (Request $request) {
     return $request->user();
